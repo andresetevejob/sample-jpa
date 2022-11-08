@@ -4,7 +4,8 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
              version="3.1">
    <persistence-unit name="sample-jpa">
-        <jta-data-source>java:jboss/datasources/nextu</jta-data-source>
+        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+        
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
                 <!-- AUTO-GENERATES DATABASE FROM ANNOTATIONS METADATA -->
@@ -13,7 +14,6 @@
                  <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
                  <property name="hibernate.hbm2ddl.auto" value="create-drop" />
                  <property name="hibernate.show_sql" value="true" />
-           		 <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
         </properties>
    </persistence-unit>
 </persistence>
