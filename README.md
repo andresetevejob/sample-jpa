@@ -7,7 +7,7 @@
 
 
 ## Informations
-Veuillez cloné ce projet et vous en isnpirez pour créer le votre.Dans cette première partie nous gérons la création d'un sport.Les éléments abordés sont les suivants :
+Veuillez cloné ce projet et vous en inspirez pour créer le votre.Dans cette première partie nous gérons la création d'un sport.Les éléments abordés sont les suivants :
 - Templating avec JSP
 - Servlet
 - JPA
