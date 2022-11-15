@@ -13,7 +13,7 @@
     <description></description>
     <display-name>CreerSportController</display-name>
     <servlet-name>CreerSportController</servlet-name>
-    <servlet-class>com.nextu.controllers.CreerSportController</servlet-class>
+    <servlet-class>com.nextu.controllers.sport.CreerSportController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CreerSportController</servlet-name>

@@ -10,6 +10,9 @@
               <a class="nav-link" href="/sample-jpa">
                Sport
               </a>
+               <a class="nav-link" href="disciplines">
+               Discipline
+              </a>
             </li>
             
           </ul>

@@ -1,4 +1,4 @@
-package com.nextu.controllers;
+package com.nextu.controllers.sport;
 
 import java.io.IOException;
 import com.nextu.entities.Sport;
@@ -82,7 +82,6 @@ public class CreerSportController extends HttpServlet {
 
    private void redirectWithErrorMessage(HttpServletResponse response, String uriRedirect,
          String message) throws IOException {
-
       String urlRediret = String.format(uriRedirect, message);
       response.sendRedirect(urlRediret);
    }

@@ -1,4 +1,4 @@
-package com.nextu.controllers;
+package com.nextu.controllers.sport;
 
 import java.io.IOException;
 import java.util.List;

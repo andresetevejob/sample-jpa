@@ -1,4 +1,4 @@
-package com.nextu.controllers;
+package com.nextu.controllers.sport;
 
 import java.io.IOException;
 import com.nextu.entities.Sport;
@@ -13,10 +13,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.UserTransaction;
 
 /**
- * Servlet implementation class DeleteSport
+ * Servlet implementation class ModifierSport
  */
-@WebServlet("/deleteSport")
-public class DeleteSport extends HttpServlet {
+@WebServlet("/modifierSport")
+public class ModifierSport extends HttpServlet {
    private static final long serialVersionUID = 1L;
    @PersistenceContext(unitName = "sample-jpa")
    private EntityManager em;
@@ -26,7 +26,7 @@ public class DeleteSport extends HttpServlet {
    /**
     * Default constructor.
     */
-   public DeleteSport() {
+   public ModifierSport() {
       // TODO Auto-generated constructor stub
    }
 
@@ -35,23 +35,40 @@ public class DeleteSport extends HttpServlet {
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
+      Long codeSport = Long.valueOf(request.getParameter("codeSport"));
+      Sport sport = em.find(Sport.class, codeSport);
+      request.setAttribute("sport", sport);
+      String errorMessage = request.getParameter("errorMessage");
+      request.setAttribute("errorMessage", errorMessage);
+      this.getServletContext().getRequestDispatcher("/modifier-sport.jsp").forward(request,
+            response);
+   }
+
+   /**
+    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
       // TODO Auto-generated method stub
+      String libelle = request.getParameter("libelle");
       String message = "";
-      String uriRedirect = """
-            sports.jsp?errorMessage=%s
-            """;
-      try {
-         Long codeSport = Long.parseLong(request.getParameter("codeSport"));
+      Long codeSport = Long.valueOf(request.getParameter("codeSport"));
+      String uriRedirect = "modifierSport?codeSport=" + codeSport + "&errorMessage=%s";
+      if (libelle == null || libelle.isEmpty() || libelle.isBlank()) {
+         message = "Veuillez renseignez le libellé du sport";
+         redirectWithErrorMessage(response, uriRedirect, message);
+
+      } else {
          Sport sport = em.find(Sport.class, codeSport);
          if (sport == null) {
             message = "Aucun sport correspondant à ce code";
             redirectWithErrorMessage(response, uriRedirect, message);
          } else {
-
             boolean transactionOk = false;
             try {
                userTransaction.begin();
-               em.remove(em.merge(sport));
+               sport.setLibelle(libelle);
+               em.merge(sport);
                transactionOk = true;
             } catch (Exception e) {
                System.out.print("Une erreur est survennue lors de l'enregistrement");
@@ -74,19 +91,14 @@ public class DeleteSport extends HttpServlet {
                }
             }
          }
-      } catch (Exception ex) {
-         message =
-               "Une erreur est survenue lors de la suppression veuillez contacter l'administrateur";
-         redirectWithErrorMessage(response, uriRedirect, message);
+
       }
-
-
    }
 
    private void redirectWithErrorMessage(HttpServletResponse response, String uriRedirect,
          String message) throws IOException {
-
-      String.format(uriRedirect, message);
-      response.sendRedirect(uriRedirect);
+      String urlRediret = String.format(uriRedirect, message);
+      response.sendRedirect(urlRediret);
    }
+
 }
